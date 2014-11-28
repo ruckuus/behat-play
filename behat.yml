@@ -12,3 +12,10 @@ phantomjs:
             goutte: ~
             selenium2:
                 wd_host: "http://localhost:9000/wd/hub"
+onebit:
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: http://onebitmedia.com
+            goutte: ~
+            selenium2:
+                wd_host: "http://localhost:9000/wd/hub"
