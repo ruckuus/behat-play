@@ -41,4 +41,39 @@ class FeatureContext extends MinkContext
         "$('.suggestions-results').children().length > 0"
       );
     }
+
+    /**
+     * @Then /^I should see an element with xpath "([^"]*)"$/
+     *
+     */
+    public function iShouldSeeAnElementWithXpath($xpath)
+    {
+      if (!$el = $this->seekByXpath($xpath)) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" selected element by xpath should contain "([^"]*)"$/
+     */
+    public function theSelectedElementByXpathShouldContain($xpath, $pattern)
+    {
+      $element = $this->seekByXpath($xpath);
+      $selectedHtml = $element->getHtml();
+
+      if ($selectedHtml != $pattern) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+    }
+
+    public function seekByXpath($xpath)
+    {
+      $session = $this->getSession(); // get the mink session
+      $element = $session->getPage()->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', $xpath)); 
+
+      if (null === $element) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+      return $element;
+    }
 }
