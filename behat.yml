@@ -1,0 +1,14 @@
+# behat.yml
+default:
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: http://en.wikipedia.org
+            goutte: ~
+            selenium2: ~
+phantomjs:
+    extensions:
+        Behat\MinkExtension\Extension:
+            base_url: http://en.wikipedia.org
+            goutte: ~
+            selenium2:
+                wd_host: "http://localhost:9000/wd/hub"
