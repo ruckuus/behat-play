@@ -66,6 +66,16 @@ class FeatureContext extends MinkContext
       }
     }
 
+    /**
+     * @When /^I click "([^"]*)" by xpath link$/
+     */
+    public function iClickByXpathLink($xpath)
+    {
+      $element = $this->seekByXpath($xpath);
+      $element->click();
+    }
+
+
     public function seekByXpath($xpath)
     {
       $session = $this->getSession(); // get the mink session

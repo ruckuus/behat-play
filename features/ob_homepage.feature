@@ -26,3 +26,8 @@ Feature: Onebitmedia homepage
     Then the ".//*[@id='team']/div[1]/div[2]/span[1]" selected element by xpath should contain "Adrianus Nugroho"
     Then the ".//*[@id='team']/div[1]/div[3]/span[1]" selected element by xpath should contain "Akhyar Amarullah"
 
+  Scenario: Click "see our work" link
+    Give I am on "/"
+    When I click "//div[1]/div[1]/ul/li[5]/a" by xpath link
+    Then the ".//*[@id='mobile']/div[1]/h2" selected element by xpath should contain "SocialPlay"
+
