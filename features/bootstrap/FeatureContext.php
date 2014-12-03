@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
 use Behat\MinkExtension\Context\MinkContext;
+use NamedSelector;
 
 //
 // Require 3rd-party libraries here:
@@ -58,7 +59,9 @@ class FeatureContext extends MinkContext
      */
     public function theSelectedElementByXpathShouldContain($xpath, $pattern)
     {
-      $element = $this->seekByXpath($xpath);
+      $lookup = new NamedSelector();
+      $string = $lookup->get($xpath);
+      $element = $this->seekByXpath($string);
       $selectedHtml = $element->getHtml();
 
       if ($selectedHtml != $pattern) {
@@ -71,7 +74,9 @@ class FeatureContext extends MinkContext
      */
     public function iClickByXpathLink($xpath)
     {
-      $element = $this->seekByXpath($xpath);
+      $lookup = new NamedSelector();
+      $string = $lookup->get($xpath);
+      $element = $this->seekByXpath($string);
       $element->click();
     }
 

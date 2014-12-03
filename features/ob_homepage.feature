@@ -22,12 +22,12 @@ Feature: Onebitmedia homepage
     Then I should see an "section#team.section" element
     Then I should see an element with xpath ".//*[@id='team']/div[1]/div[1]/span[1]"
     Then the "#team>h2" element should contain "our team"
-    Then the ".//*[@id='team']/div[1]/div[1]/span[1]" selected element by xpath should contain "Fachry Bafadal"
-    Then the ".//*[@id='team']/div[1]/div[2]/span[1]" selected element by xpath should contain "Adrianus Nugroho"
-    Then the ".//*[@id='team']/div[1]/div[3]/span[1]" selected element by xpath should contain "Akhyar Amarullah"
+    Then the "ceo_section" selected element by xpath should contain "Fachry Bafadal"
+    Then the "art_director_section" selected element by xpath should contain "Adrianus Nugroho"
+    Then the "sr_software_dev" selected element by xpath should contain "Akhyar Amarullah"
 
   Scenario: Click "see our work" link
     Give I am on "/"
-    When I click "//div[1]/div[1]/ul/li[5]/a" by xpath link
-    Then the ".//*[@id='mobile']/div[1]/h2" selected element by xpath should contain "SocialPlay"
+    When I click "mobile_link" by xpath link
+    Then the "porto_socialplay" selected element by xpath should contain "SocialPlay"
 
