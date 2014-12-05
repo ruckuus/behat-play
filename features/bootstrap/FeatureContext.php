@@ -8,6 +8,7 @@ use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
 use Behat\MinkExtension\Context\MinkContext;
+use NamedSelector;
 
 //
 // Require 3rd-party libraries here:
@@ -40,5 +41,54 @@ class FeatureContext extends MinkContext
       $this->getSession()->wait(5000, 
         "$('.suggestions-results').children().length > 0"
       );
+    }
+
+    /**
+     * @Then /^I should see an element with xpath "([^"]*)"$/
+     *
+     */
+    public function iShouldSeeAnElementWithXpath($xpath)
+    {
+      if (!$el = $this->seekByXpath($xpath)) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+    }
+
+    /**
+     * @Then /^the "([^"]*)" selected element by xpath should contain "([^"]*)"$/
+     */
+    public function theSelectedElementByXpathShouldContain($xpath, $pattern)
+    {
+      $lookup = new NamedSelector();
+      $string = $lookup->get($xpath);
+      $element = $this->seekByXpath($string);
+      $selectedHtml = $element->getHtml();
+
+      if ($selectedHtml != $pattern) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+    }
+
+    /**
+     * @When /^I click "([^"]*)" by xpath link$/
+     */
+    public function iClickByXpathLink($xpath)
+    {
+      $lookup = new NamedSelector();
+      $string = $lookup->get($xpath);
+      $element = $this->seekByXpath($string);
+      $element->click();
+    }
+
+
+    public function seekByXpath($xpath)
+    {
+      $session = $this->getSession(); // get the mink session
+      $element = $session->getPage()->find('xpath',$session->getSelectorsHandler()->selectorToXpath('xpath', $xpath)); 
+
+      if (null === $element) {
+          throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+      }
+      return $element;
     }
 }
